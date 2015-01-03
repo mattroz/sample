@@ -18,10 +18,6 @@ def followers
   render 'show_follow'
 end
 
-def feed
-  Micropost.from_users_followed_by(self)
-end
-
 def new
 	@user = User.new
 end
