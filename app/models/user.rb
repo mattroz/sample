@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+	has_many :microposts, dependent: :destroy	
 	before_save { self.email = email.downcase }
 	before_create :create_remember_token
 
@@ -15,7 +16,15 @@ class User < ActiveRecord::Base
 
 	#user's password will crypt by BCrypt
     has_secure_password
+
+def feed
+	# Это предварительное решение. См. полную реализацию в "Following users".
+	Micropost.where("user_id = ?", id)
 end
+
+end
+
+
 
 # /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i	полное регулярное выражение 
 # /	начало регулярного выражения
@@ -36,6 +45,8 @@ end
 def User.encrypt(token)
   Digest::SHA1.hexdigest(token.to_s)
 end
+
+ 
 
 private
 

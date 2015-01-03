@@ -1,14 +1,13 @@
 <!-- helper for rendering error messages while registration -->
-
-<% if @user.errors.any? %>
-<div id="error_explanation">
-	<div class="alert alert-error">
-		The registration form contains <%= @user.errors.count %> error(s).
-	</div>
-	<ul>
-		<% @user.errors.full_messages.each do |error| %>
-			<li> <%= error %> </li>
-		<% end %>
-	</ul>
-</div>
+<% if object.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-error">
+      The form contains <%= pluralize(object.errors.count, "error") %>.
+    </div>
+    <ul>
+    <% object.errors.full_messages.each do |msg| %>
+      <li>* <%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
 <% end %>
